@@ -18,7 +18,14 @@ def arithmetic_arranger(problems, result = False):
             return 'Error: Numbers must only contain digits.'
         if len(split[LEFT_OPERAND]) > 4 or len(split[RIGHT_OPERAND]) > 4:
             return 'Error: Numbers cannot be more than four digits.'
-        
+        if result:
+            caculation = 0
+            if split[OPERATOR] == '-':
+                caculation = int(split[LEFT_OPERAND]) - int(split[RIGHT_OPERAND])
+            else:
+                caculation = int(split[LEFT_OPERAND]) + int(split[RIGHT_OPERAND])
+            caculation = str(caculation)
+
         #Standardize data
         while len(split[LEFT_OPERAND]) > len(split[RIGHT_OPERAND]):
             split[RIGHT_OPERAND] = ' ' + split[RIGHT_OPERAND]
@@ -27,21 +34,14 @@ def arithmetic_arranger(problems, result = False):
         split.append('-' * len(split[RIGHT_OPERAND]))
         while len(split[LEFT_OPERAND]) < len(split[RIGHT_OPERAND]):
             split[LEFT_OPERAND] = ' ' + split[LEFT_OPERAND]
-
         if result:
-            caculation = 0
-            if split[OPERATOR] == '-':
-                caculation = int(split[LEFT_OPERAND]) - int(split[RIGHT_OPERAND])
-            else:
-                caculation = int(split[LEFT_OPERAND]) + int(split[RIGHT_OPERAND])
-            caculation = str(caculation)
             while len(caculation) < len(split[RIGHT_OPERAND]):
                 caculation = ' ' + caculation
             split.append(caculation)
 
         standard_table.append(split)
 
-    arranged_problems = ''
+    arranged_problems = ""
     #First Row
     for collum in standard_table:
         arranged_problems += collum[LEFT_OPERAND]
@@ -61,7 +61,7 @@ def arithmetic_arranger(problems, result = False):
     #Third Row
     for collum in standard_table:
         arranged_problems += collum[DASHES]
-        if collum == standard_table[-1]:
+        if collum == standard_table[-1] and result:
             arranged_problems += '\n'
         else:
             arranged_problems += ' ' * 4
@@ -70,7 +70,7 @@ def arithmetic_arranger(problems, result = False):
     if result:
         for collum in standard_table:
             arranged_problems += collum[RESULT]
-        if collum != standard_table[-1]:
-            arranged_problems += ' ' * 4
+            if collum != standard_table[-1]:
+                arranged_problems += ' ' * 4
 
     return arranged_problems
