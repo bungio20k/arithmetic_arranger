@@ -61,8 +61,9 @@ def arithmetic_arranger(problems, result = False):
     #Third Row
     for collum in standard_table:
         arranged_problems += collum[DASHES]
-        if collum == standard_table[-1] and result:
-            arranged_problems += '\n'
+        if collum == standard_table[-1]:
+            if result:
+                arranged_problems += '\n'
         else:
             arranged_problems += ' ' * 4
     
